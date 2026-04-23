@@ -17,6 +17,11 @@ separately so the report distinguishes between "this violates the spec" and
 
 ## Endpoints
 
+The root path (`/`) serves an HTML UI when accessed from a browser — useful
+for one-off SVG validation, logotype extraction from a VMC PEM, or
+comparing a cert-embedded SVG against what's served at a BIMI `l=` URL.
+The same URL returns a JSON health response to non-browser clients.
+
 ### `POST /convert`
 Accept an SVG, classify, validate, auto-fix, re-validate, return. Body is
 either raw SVG (`content-type: image/svg+xml`) or JSON `{"svg": "..."}`.

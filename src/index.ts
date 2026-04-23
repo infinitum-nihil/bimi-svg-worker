@@ -2,6 +2,7 @@ import { classify } from './classify.ts';
 import { validate } from './validate.ts';
 import { transform } from './transform.ts';
 import { inspectVMC } from './inspect.ts';
+import { LANDING_PAGE_HTML } from './page.ts';
 import type { ConvertResponse } from './types.ts';
 
 export interface Env {
@@ -18,23 +19,41 @@ export default {
       if ((req.method === 'POST' || req.method === 'GET') && path === '/validate') return await handleValidate(req);
       if (req.method === 'POST' && path === '/inspect')  return await handleInspect(req);
       if (req.method === 'GET'  && path === '/spec-status') return handleSpecStatus(env);
-      if (path === '/' || path === '/health') {
-        return json({
-          ok: true,
-          service: 'bimi-svg-worker',
-          endpoints: ['/convert', '/validate', '/inspect', '/spec-status'],
-          spec: {
-            svgTinyPS: 'draft-svg-tiny-ps-abrotman-10',
-            fetchValidation: 'draft-fetch-validation-vmc-wchuang-10',
-          },
-        });
+
+      // Root: serve the HTML UI to browsers, JSON otherwise
+      if (path === '/') {
+        const accept = req.headers.get('accept') || '';
+        if (accept.includes('text/html')) {
+          return new Response(LANDING_PAGE_HTML, {
+            headers: {
+              'content-type': 'text/html; charset=utf-8',
+              'cache-control': 'public, max-age=300',
+            },
+          });
+        }
+        return healthJSON();
       }
+
+      if (path === '/health') return healthJSON();
+
       return json({ error: 'not found' }, 404);
     } catch (err) {
       return json({ error: (err as Error).message, stack: (err as Error).stack }, 500);
     }
   },
 };
+
+function healthJSON(): Response {
+  return json({
+    ok: true,
+    service: 'bimi-svg-worker',
+    endpoints: ['/convert', '/validate', '/inspect', '/spec-status'],
+    spec: {
+      svgTinyPS: 'draft-svg-tiny-ps-abrotman-10',
+      fetchValidation: 'draft-fetch-validation-vmc-wchuang-10',
+    },
+  });
+}
 
 function handleSpecStatus(env: Env): Response {
   const repo = env.GITHUB_REPO;  // e.g., "infinitum-nihil/bimi-svg-worker"
