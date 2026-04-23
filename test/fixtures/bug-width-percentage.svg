@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<svg version="1.2" width="100%" viewBox="0 0 192 192" xml:space="preserve" baseProfile="tiny-ps" xmlns="http://www.w3.org/2000/svg">
+  <title>Example Logo</title>
+  <rect x="0" y="0" width="192" height="192" fill="#FFFFFF"/>
+  <path fill="#000000" d="M 40 40 L 152 40 L 152 152 L 40 152 Z"/>
+  <path fill="#C90000" d="M 60 60 L 132 60 L 132 132 L 60 132 Z"/>
+</svg>

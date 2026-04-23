@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny-ps"
+     viewBox="0 0 100 100" width="100%" x="0" y="0"
+     zoomAndPan="magnify" onclick="alert(1)">
+  <title></title>
+  <desc></desc>
+  <rect width="100" height="100" fill="red" style="opacity:0.5"/>
+  <script>alert('xss')</script>
+  <a href="https://evil.example.com"><rect x="0" y="0" width="10" height="10"/></a>
+</svg>

@@ -1,0 +1,24 @@
+name: Check for spec drift
+
+on:
+  schedule:
+    # Weekly, Monday 14:00 UTC
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check spec versions against IETF datatracker
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: node scripts/check-spec-drift.mjs
