@@ -5,8 +5,8 @@ compatibility_flags = ["nodejs_compat"]
 
 # Set this to "<owner>/<repo>" so /spec-status can link to the source repo
 # and the drift-check workflow.
-# [vars]
-# GITHUB_REPO = "your-org/bimi-svg-worker"
+[vars]
+GITHUB_REPO = "infinitum-nihil/bimi-svg-worker"
 
 # Optional: bind a KV namespace for caching /convert responses by input hash
 # [[kv_namespaces]]
