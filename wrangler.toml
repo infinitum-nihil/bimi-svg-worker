@@ -1,0 +1,17 @@
+name = "bimi-svg-worker"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Set this to "<owner>/<repo>" so /spec-status can link to the source repo
+# and the drift-check workflow.
+# [vars]
+# GITHUB_REPO = "your-org/bimi-svg-worker"
+
+# Optional: bind a KV namespace for caching /convert responses by input hash
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "<your-kv-id>"
+
+# Optional: route to a custom domain
+# routes = [{ pattern = "bimi.example.com/*", custom_domain = true }]
